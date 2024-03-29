@@ -1,70 +1,321 @@
-pub fn cfp1(dep1, fun) {
-  fn(ctx) { fun(dep1(ctx)) }
-}
+import gleam/list
+import gleam/dict
+import gleam/dynamic
 
-pub fn cfp2(dep1, dep2, fun) {
-  fn(ctx) { fun(dep1(ctx), dep2(ctx)) }
-}
+type Cache =
+  dict.Dict(dynamic.Dynamic, dynamic.Dynamic)
 
-pub fn cfp3(dep1, dep2, dep3, fun) {
-  fn(ctx) { fun(dep1(ctx), dep2(ctx), dep3(ctx)) }
-}
-
-pub fn cfp4(dep1, dep2, dep3, dep4, fun) {
-  fn(ctx) { fun(dep1(ctx), dep2(ctx), dep3(ctx), dep4(ctx)) }
-}
-
-pub fn cfp5(dep1, dep2, dep3, dep4, dep5, fun) {
-  fn(ctx) { fun(dep1(ctx), dep2(ctx), dep3(ctx), dep4(ctx), dep5(ctx)) }
-}
-
-pub fn cfp6(dep1, dep2, dep3, dep4, dep5, dep6, fun) {
-  fn(ctx) {
-    fun(dep1(ctx), dep2(ctx), dep3(ctx), dep4(ctx), dep5(ctx), dep6(ctx))
+pub fn cfp1(dep1: fn(ctx, Cache) -> a, fun: fn(a) -> resp) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp = cfp_base([dynamic.from(dep1)], ctx, cache)
+    let assert Ok(val1) = list.at(resp, 0)
+    fun(dynamic.unsafe_coerce(val1))
   }
 }
 
-pub fn cfp7(dep1, dep2, dep3, dep4, dep5, dep6, dep7, fun) {
-  fn(ctx) {
+pub fn cfp2(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  fun: fn(a, b) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp = cfp_base([dynamic.from(dep1), dynamic.from(dep2)], ctx, cache)
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    fun(dynamic.unsafe_coerce(val1), dynamic.unsafe_coerce(val2))
+  }
+}
+
+pub fn cfp3(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  dep3: fn(ctx, Cache) -> c,
+  fun: fn(a, b, c) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp =
+      cfp_base(
+        [dynamic.from(dep1), dynamic.from(dep2), dynamic.from(dep3)],
+        ctx,
+        cache,
+      )
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val3) = list.at(resp, 2)
     fun(
-      dep1(ctx),
-      dep2(ctx),
-      dep3(ctx),
-      dep4(ctx),
-      dep5(ctx),
-      dep6(ctx),
-      dep7(ctx),
+      dynamic.unsafe_coerce(val1),
+      dynamic.unsafe_coerce(val2),
+      dynamic.unsafe_coerce(val3),
     )
   }
 }
 
-pub fn cfp8(dep1, dep2, dep3, dep4, dep5, dep6, dep7, dep8, fun) {
-  fn(ctx) {
+pub fn cfp4(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  dep3: fn(ctx, Cache) -> c,
+  dep4: fn(ctx, Cache) -> d,
+  fun: fn(a, b, c, d) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp =
+      cfp_base(
+        [
+          dynamic.from(dep1),
+          dynamic.from(dep2),
+          dynamic.from(dep3),
+          dynamic.from(dep4),
+        ],
+        ctx,
+        cache,
+      )
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val3) = list.at(resp, 2)
+    let assert Ok(val4) = list.at(resp, 3)
     fun(
-      dep1(ctx),
-      dep2(ctx),
-      dep3(ctx),
-      dep4(ctx),
-      dep5(ctx),
-      dep6(ctx),
-      dep7(ctx),
-      dep8(ctx),
+      dynamic.unsafe_coerce(val1),
+      dynamic.unsafe_coerce(val2),
+      dynamic.unsafe_coerce(val3),
+      dynamic.unsafe_coerce(val4),
     )
   }
 }
 
-pub fn cfp9(dep1, dep2, dep3, dep4, dep5, dep6, dep7, dep8, dep9, fun) {
-  fn(ctx) {
+pub fn cfp5(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  dep3: fn(ctx, Cache) -> c,
+  dep4: fn(ctx, Cache) -> d,
+  dep5: fn(ctx, Cache) -> e,
+  fun: fn(a, b, c, d, e) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp =
+      cfp_base(
+        [
+          dynamic.from(dep1),
+          dynamic.from(dep2),
+          dynamic.from(dep3),
+          dynamic.from(dep4),
+          dynamic.from(dep5),
+        ],
+        ctx,
+        cache,
+      )
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val3) = list.at(resp, 2)
+    let assert Ok(val4) = list.at(resp, 3)
+    let assert Ok(val5) = list.at(resp, 4)
     fun(
-      dep1(ctx),
-      dep2(ctx),
-      dep3(ctx),
-      dep4(ctx),
-      dep5(ctx),
-      dep6(ctx),
-      dep7(ctx),
-      dep8(ctx),
-      dep9(ctx),
+      dynamic.unsafe_coerce(val1),
+      dynamic.unsafe_coerce(val2),
+      dynamic.unsafe_coerce(val3),
+      dynamic.unsafe_coerce(val4),
+      dynamic.unsafe_coerce(val5),
     )
   }
+}
+
+pub fn cfp6(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  dep3: fn(ctx, Cache) -> c,
+  dep4: fn(ctx, Cache) -> d,
+  dep5: fn(ctx, Cache) -> e,
+  dep6: fn(ctx, Cache) -> f,
+  fun: fn(a, b, c, d, e, f) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp =
+      cfp_base(
+        [
+          dynamic.from(dep1),
+          dynamic.from(dep2),
+          dynamic.from(dep3),
+          dynamic.from(dep4),
+          dynamic.from(dep5),
+          dynamic.from(dep6),
+        ],
+        ctx,
+        cache,
+      )
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val3) = list.at(resp, 2)
+    let assert Ok(val4) = list.at(resp, 3)
+    let assert Ok(val5) = list.at(resp, 4)
+    let assert Ok(val6) = list.at(resp, 5)
+    fun(
+      dynamic.unsafe_coerce(val1),
+      dynamic.unsafe_coerce(val2),
+      dynamic.unsafe_coerce(val3),
+      dynamic.unsafe_coerce(val4),
+      dynamic.unsafe_coerce(val5),
+      dynamic.unsafe_coerce(val6),
+    )
+  }
+}
+
+pub fn cfp7(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  dep3: fn(ctx, Cache) -> c,
+  dep4: fn(ctx, Cache) -> d,
+  dep5: fn(ctx, Cache) -> e,
+  dep6: fn(ctx, Cache) -> f,
+  dep7: fn(ctx, Cache) -> g,
+  fun: fn(a, b, c, d, e, f, g) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp =
+      cfp_base(
+        [
+          dynamic.from(dep1),
+          dynamic.from(dep2),
+          dynamic.from(dep3),
+          dynamic.from(dep4),
+          dynamic.from(dep5),
+          dynamic.from(dep6),
+          dynamic.from(dep7),
+        ],
+        ctx,
+        cache,
+      )
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val3) = list.at(resp, 2)
+    let assert Ok(val4) = list.at(resp, 3)
+    let assert Ok(val5) = list.at(resp, 4)
+    let assert Ok(val6) = list.at(resp, 5)
+    let assert Ok(val7) = list.at(resp, 6)
+    fun(
+      dynamic.unsafe_coerce(val1),
+      dynamic.unsafe_coerce(val2),
+      dynamic.unsafe_coerce(val3),
+      dynamic.unsafe_coerce(val4),
+      dynamic.unsafe_coerce(val5),
+      dynamic.unsafe_coerce(val6),
+      dynamic.unsafe_coerce(val7),
+    )
+  }
+}
+
+pub fn cfp8(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  dep3: fn(ctx, Cache) -> c,
+  dep4: fn(ctx, Cache) -> d,
+  dep5: fn(ctx, Cache) -> e,
+  dep6: fn(ctx, Cache) -> f,
+  dep7: fn(ctx, Cache) -> g,
+  dep8: fn(ctx, Cache) -> h,
+  fun: fn(a, b, c, d, e, f, g, h) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp =
+      cfp_base(
+        [
+          dynamic.from(dep1),
+          dynamic.from(dep2),
+          dynamic.from(dep3),
+          dynamic.from(dep4),
+          dynamic.from(dep5),
+          dynamic.from(dep6),
+          dynamic.from(dep7),
+          dynamic.from(dep8),
+        ],
+        ctx,
+        cache,
+      )
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val3) = list.at(resp, 2)
+    let assert Ok(val4) = list.at(resp, 3)
+    let assert Ok(val5) = list.at(resp, 4)
+    let assert Ok(val6) = list.at(resp, 5)
+    let assert Ok(val7) = list.at(resp, 6)
+    let assert Ok(val8) = list.at(resp, 7)
+    fun(
+      dynamic.unsafe_coerce(val1),
+      dynamic.unsafe_coerce(val2),
+      dynamic.unsafe_coerce(val3),
+      dynamic.unsafe_coerce(val4),
+      dynamic.unsafe_coerce(val5),
+      dynamic.unsafe_coerce(val6),
+      dynamic.unsafe_coerce(val7),
+      dynamic.unsafe_coerce(val8),
+    )
+  }
+}
+
+pub fn cfp9(
+  dep1: fn(ctx, Cache) -> a,
+  dep2: fn(ctx, Cache) -> b,
+  dep3: fn(ctx, Cache) -> c,
+  dep4: fn(ctx, Cache) -> d,
+  dep5: fn(ctx, Cache) -> e,
+  dep6: fn(ctx, Cache) -> f,
+  dep7: fn(ctx, Cache) -> g,
+  dep8: fn(ctx, Cache) -> h,
+  dep9: fn(ctx, Cache) -> i,
+  fun: fn(a, b, c, d, e, f, g, h, i) -> resp,
+) {
+  fn(ctx: ctx, cache: Cache) {
+    let resp =
+      cfp_base(
+        [
+          dynamic.from(dep1),
+          dynamic.from(dep2),
+          dynamic.from(dep3),
+          dynamic.from(dep4),
+          dynamic.from(dep5),
+          dynamic.from(dep6),
+          dynamic.from(dep7),
+          dynamic.from(dep8),
+          dynamic.from(dep9),
+        ],
+        ctx,
+        cache,
+      )
+    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val3) = list.at(resp, 2)
+    let assert Ok(val4) = list.at(resp, 3)
+    let assert Ok(val5) = list.at(resp, 4)
+    let assert Ok(val6) = list.at(resp, 5)
+    let assert Ok(val7) = list.at(resp, 6)
+    let assert Ok(val8) = list.at(resp, 7)
+    let assert Ok(val9) = list.at(resp, 8)
+    fun(
+      dynamic.unsafe_coerce(val1),
+      dynamic.unsafe_coerce(val2),
+      dynamic.unsafe_coerce(val3),
+      dynamic.unsafe_coerce(val4),
+      dynamic.unsafe_coerce(val5),
+      dynamic.unsafe_coerce(val6),
+      dynamic.unsafe_coerce(val7),
+      dynamic.unsafe_coerce(val8),
+      dynamic.unsafe_coerce(val9),
+    )
+  }
+}
+
+fn cfp_base(deps, ctx, cache: Cache) {
+  list.fold(deps, #([], cache), fn(acc, dep) {
+    let resp = acc.0
+    let cache = acc.1
+    let from_cache = dict.get(cache, dep)
+    case from_cache {
+      Ok(val) -> #(list.append(resp, [val]), cache)
+      Error(Nil) -> {
+        let val =
+          dynamic.unsafe_coerce(dep)(ctx, cache)
+          |> dynamic.from
+        let cache = dict.insert(cache, dep, val)
+        #(list.append(resp, [val]), cache)
+      }
+    }
+  }).0
 }
