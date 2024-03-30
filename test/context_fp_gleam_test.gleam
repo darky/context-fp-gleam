@@ -17,12 +17,12 @@ pub fn cfp_basic_test() {
   let numbers_prefix = fn(_ns, _c) { "Here is numbers: " }
   let positive_numbers_as_string =
     cfp2(positive_numbers, numbers_prefix, fn(ns, prefix) {
-      prefix <> string.join(list.map(ns, fn(n) { int.to_string(n) }), ",")
+      prefix
+      <> list.map(ns, fn(n) { int.to_string(n) })
+      |> string.join(",")
     })
-  should.equal(
-    positive_numbers_as_string([-1, -5, 7, 0, 4], dict.new()),
-    "Here is numbers: 7,4",
-  )
+  positive_numbers_as_string([-1, -5, 7, 0, 4], dict.new())
+  |> should.equal("Here is numbers: 7,4")
 }
 
 type User {
@@ -36,10 +36,8 @@ pub fn cpf_di_test() {
   }
   let hello_world_user =
     cfp1(fetch_user, fn(user) { "Hello world, " <> user.name })
-  should.equal(
-    hello_world_user(option.Some(fn() { User("Vasya") }), dict.new()),
-    "Hello world, Vasya",
-  )
+  hello_world_user(option.Some(fn() { User("Vasya") }), dict.new())
+  |> should.equal("Hello world, Vasya")
 }
 
 type Ctx {
@@ -235,12 +233,11 @@ pub fn cpf_cache_test() {
     cfp1(positive_numbers, fn(ns) { list.length(ns) })
   let positive_numbers_as_string =
     cfp2(positive_numbers, positive_numbers_length, fn(ns, length) {
-      string.join(list.map(ns, fn(n) { int.to_string(n) }), ",")
+      list.map(ns, fn(n) { int.to_string(n) })
+      |> string.join(",")
       <> "; length - "
       <> int.to_string(length)
     })
-  should.equal(
-    positive_numbers_as_string([-1, -5, 7, 0, 4], dict.new()),
-    "7,4; length - 2",
-  )
+  positive_numbers_as_string([-1, -5, 7, 0, 4], dict.new())
+  |> should.equal("7,4; length - 2")
 }

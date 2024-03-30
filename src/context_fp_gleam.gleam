@@ -304,8 +304,7 @@ pub fn cfp9(
 
 fn cfp_base(deps, ctx, cache: Cache) {
   list.fold(deps, #([], cache), fn(acc, dep) {
-    let resp = acc.0
-    let cache = acc.1
+    let #(resp, cache) = acc
     let from_cache = dict.get(cache, dep)
     case from_cache {
       Ok(val) -> #(list.append(resp, [val]), cache)
