@@ -73,6 +73,7 @@ let fetch_user = fn(fetch_user_mock, _c) {
 let hello_world_user =
   cfp1(fetch_user, fn(user) { "Hello world, " <> user.name })
 
+// Hello world, Vasya
 hello_world_user(option.Some(fn() { User("Vasya") }), dict.new())
 ```
 
