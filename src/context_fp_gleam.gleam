@@ -5,24 +5,25 @@ import gleam/dynamic
 type Cache =
   dict.Dict(dynamic.Dynamic, dynamic.Dynamic)
 
-pub fn cfp1(dep1: fn(ctx, Cache) -> a, fun: fn(a) -> resp) {
+pub fn cfp1(dep1: fn(ctx, Cache) -> a, fun: fn(a, Cache) -> resp) {
   fn(ctx: ctx, cache: Cache) {
-    let resp = cfp_base([dynamic.from(dep1)], ctx, cache)
+    let #(resp, cache) = cfp_base([dynamic.from(dep1)], ctx, cache)
     let assert Ok(val1) = list.at(resp, 0)
-    fun(dynamic.unsafe_coerce(val1))
+    fun(dynamic.unsafe_coerce(val1), cache)
   }
 }
 
 pub fn cfp2(
   dep1: fn(ctx, Cache) -> a,
   dep2: fn(ctx, Cache) -> b,
-  fun: fn(a, b) -> resp,
+  fun: fn(a, b, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp = cfp_base([dynamic.from(dep1), dynamic.from(dep2)], ctx, cache)
+    let #(resp, cache) =
+      cfp_base([dynamic.from(dep1), dynamic.from(dep2)], ctx, cache)
     let assert Ok(val1) = list.at(resp, 0)
     let assert Ok(val2) = list.at(resp, 1)
-    fun(dynamic.unsafe_coerce(val1), dynamic.unsafe_coerce(val2))
+    fun(dynamic.unsafe_coerce(val1), dynamic.unsafe_coerce(val2), cache)
   }
 }
 
@@ -30,10 +31,10 @@ pub fn cfp3(
   dep1: fn(ctx, Cache) -> a,
   dep2: fn(ctx, Cache) -> b,
   dep3: fn(ctx, Cache) -> c,
-  fun: fn(a, b, c) -> resp,
+  fun: fn(a, b, c, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp =
+    let #(resp, cache) =
       cfp_base(
         [dynamic.from(dep1), dynamic.from(dep2), dynamic.from(dep3)],
         ctx,
@@ -46,6 +47,7 @@ pub fn cfp3(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
       dynamic.unsafe_coerce(val3),
+      cache,
     )
   }
 }
@@ -55,10 +57,10 @@ pub fn cfp4(
   dep2: fn(ctx, Cache) -> b,
   dep3: fn(ctx, Cache) -> c,
   dep4: fn(ctx, Cache) -> d,
-  fun: fn(a, b, c, d) -> resp,
+  fun: fn(a, b, c, d, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp =
+    let #(resp, cache) =
       cfp_base(
         [
           dynamic.from(dep1),
@@ -78,6 +80,7 @@ pub fn cfp4(
       dynamic.unsafe_coerce(val2),
       dynamic.unsafe_coerce(val3),
       dynamic.unsafe_coerce(val4),
+      cache,
     )
   }
 }
@@ -88,10 +91,10 @@ pub fn cfp5(
   dep3: fn(ctx, Cache) -> c,
   dep4: fn(ctx, Cache) -> d,
   dep5: fn(ctx, Cache) -> e,
-  fun: fn(a, b, c, d, e) -> resp,
+  fun: fn(a, b, c, d, e, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp =
+    let #(resp, cache) =
       cfp_base(
         [
           dynamic.from(dep1),
@@ -114,6 +117,7 @@ pub fn cfp5(
       dynamic.unsafe_coerce(val3),
       dynamic.unsafe_coerce(val4),
       dynamic.unsafe_coerce(val5),
+      cache,
     )
   }
 }
@@ -125,10 +129,10 @@ pub fn cfp6(
   dep4: fn(ctx, Cache) -> d,
   dep5: fn(ctx, Cache) -> e,
   dep6: fn(ctx, Cache) -> f,
-  fun: fn(a, b, c, d, e, f) -> resp,
+  fun: fn(a, b, c, d, e, f, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp =
+    let #(resp, cache) =
       cfp_base(
         [
           dynamic.from(dep1),
@@ -154,6 +158,7 @@ pub fn cfp6(
       dynamic.unsafe_coerce(val4),
       dynamic.unsafe_coerce(val5),
       dynamic.unsafe_coerce(val6),
+      cache,
     )
   }
 }
@@ -166,10 +171,10 @@ pub fn cfp7(
   dep5: fn(ctx, Cache) -> e,
   dep6: fn(ctx, Cache) -> f,
   dep7: fn(ctx, Cache) -> g,
-  fun: fn(a, b, c, d, e, f, g) -> resp,
+  fun: fn(a, b, c, d, e, f, g, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp =
+    let #(resp, cache) =
       cfp_base(
         [
           dynamic.from(dep1),
@@ -198,6 +203,7 @@ pub fn cfp7(
       dynamic.unsafe_coerce(val5),
       dynamic.unsafe_coerce(val6),
       dynamic.unsafe_coerce(val7),
+      cache,
     )
   }
 }
@@ -211,10 +217,10 @@ pub fn cfp8(
   dep6: fn(ctx, Cache) -> f,
   dep7: fn(ctx, Cache) -> g,
   dep8: fn(ctx, Cache) -> h,
-  fun: fn(a, b, c, d, e, f, g, h) -> resp,
+  fun: fn(a, b, c, d, e, f, g, h, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp =
+    let #(resp, cache) =
       cfp_base(
         [
           dynamic.from(dep1),
@@ -246,6 +252,7 @@ pub fn cfp8(
       dynamic.unsafe_coerce(val6),
       dynamic.unsafe_coerce(val7),
       dynamic.unsafe_coerce(val8),
+      cache,
     )
   }
 }
@@ -260,10 +267,10 @@ pub fn cfp9(
   dep7: fn(ctx, Cache) -> g,
   dep8: fn(ctx, Cache) -> h,
   dep9: fn(ctx, Cache) -> i,
-  fun: fn(a, b, c, d, e, f, g, h, i) -> resp,
+  fun: fn(a, b, c, d, e, f, g, h, i, Cache) -> resp,
 ) {
   fn(ctx: ctx, cache: Cache) {
-    let resp =
+    let #(resp, cache) =
       cfp_base(
         [
           dynamic.from(dep1),
@@ -298,6 +305,7 @@ pub fn cfp9(
       dynamic.unsafe_coerce(val7),
       dynamic.unsafe_coerce(val8),
       dynamic.unsafe_coerce(val9),
+      cache,
     )
   }
 }
@@ -316,5 +324,5 @@ fn cfp_base(deps, ctx, cache: Cache) {
         #(list.append(resp, [val]), cache)
       }
     }
-  }).0
+  })
 }
