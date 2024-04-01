@@ -1,5 +1,5 @@
 name = "context_fp_gleam"
-version = "1.0.0"
+version = "1.1.0"
 description = "Functional programming context for Gleam"
 licences = ["MIT"]
 repository = { type = "github", user = "darky", repo = "context-fp-gleam" }
