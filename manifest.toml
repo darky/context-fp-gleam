@@ -2,7 +2,7 @@
 # You typically do not need to edit this file
 
 packages = [
-  { name = "cleam", version = "1.2.0", build_tools = ["gleam"], requirements = ["fswalk", "glance", "gleam_stdlib", "simplifile"], otp_app = "cleam", source = "hex", outer_checksum = "D99B98802E3B8BFCC5A8F894FC849C708A9D0D04A6F5109B89D6E7321027FED2" },
+  { name = "cleam", version = "1.2.1", build_tools = ["gleam"], requirements = ["fswalk", "glance", "gleam_stdlib", "simplifile"], otp_app = "cleam", source = "hex", outer_checksum = "41437BFEE576F84D0CBCF801720A6CA9836F0F576E18CC3CCF8198F28D6557B7" },
   { name = "dot_env", version = "0.5.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "simplifile"], otp_app = "dot_env", source = "hex", outer_checksum = "18F51CAFE99F6E3F2B10CF5DBACE63505DB6DC1FA69AFA0105756ACC8201C3A2" },
   { name = "filepath", version = "1.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "filepath", source = "hex", outer_checksum = "EFB6FF65C98B2A16378ABC3EE2B14124168C0CE5201553DE652E2644DCFDB594" },
   { name = "fswalk", version = "2.0.2", build_tools = ["gleam"], requirements = ["dot_env", "gleam_community_path", "gleam_stdlib", "simplifile"], otp_app = "fswalk", source = "hex", outer_checksum = "5D8E9C34C4C1BF3E65A79A292FE98B4AD35E525D18BB068518359687FA7BD1EB" },
@@ -15,6 +15,6 @@ packages = [
 ]
 
 [requirements]
-cleam = { version = "~> 1.2"}
+cleam = { version = "~> 1.2" }
 gleam_stdlib = { version = "~> 0.34 or ~> 1.0" }
 gleeunit = { version = "~> 1.0" }
