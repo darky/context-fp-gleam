@@ -1,6 +1,6 @@
-import gleam/list
 import gleam/dict
 import gleam/dynamic
+import gleam/list
 
 type Cache =
   dict.Dict(dynamic.Dynamic, dynamic.Dynamic)

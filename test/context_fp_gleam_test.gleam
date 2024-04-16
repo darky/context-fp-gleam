@@ -1,13 +1,13 @@
+import context_fp_gleam.{cfp1, cfp2, cfp3, cfp4, cfp5, cfp6, cfp7, cfp8, cfp9}
+import gleam/dict
+import gleam/dynamic
+import gleam/int
+import gleam/io
+import gleam/list
+import gleam/option
+import gleam/string
 import gleeunit
 import gleeunit/should
-import gleam/list
-import context_fp_gleam.{cfp1, cfp2, cfp3, cfp4, cfp5, cfp6, cfp7, cfp8, cfp9}
-import gleam/string
-import gleam/int
-import gleam/option
-import gleam/dict
-import gleam/io
-import gleam/dynamic
 
 pub fn main() {
   gleeunit.main()
@@ -184,9 +184,15 @@ pub fn cfp_generics8_test() {
       fn8,
       fn(c1, c2, c3, c4, c5, c6, c7, c8, _c) {
         case c1, c2, c3, c4, c5, c6, c7, c8 {
-          Ctx1(n1), Ctx2(n2), Ctx3(n3), Ctx4(n4), Ctx5(n5), Ctx6(n6), Ctx7(n7), Ctx8(
-            n8,
-          ) -> 1 + n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8
+          Ctx1(n1),
+            Ctx2(n2),
+            Ctx3(n3),
+            Ctx4(n4),
+            Ctx5(n5),
+            Ctx6(n6),
+            Ctx7(n7),
+            Ctx8(n8)
+          -> 1 + n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8
           _, _, _, _, _, _, _, _ -> 0
         }
       },
@@ -217,9 +223,16 @@ pub fn cfp_generics9_test() {
       fn9,
       fn(c1, c2, c3, c4, c5, c6, c7, c8, c9, _c) {
         case c1, c2, c3, c4, c5, c6, c7, c8, c9 {
-          Ctx1(n1), Ctx2(n2), Ctx3(n3), Ctx4(n4), Ctx5(n5), Ctx6(n6), Ctx7(n7), Ctx8(
-            n8,
-          ), Ctx9(n9) -> 1 + n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9
+          Ctx1(n1),
+            Ctx2(n2),
+            Ctx3(n3),
+            Ctx4(n4),
+            Ctx5(n5),
+            Ctx6(n6),
+            Ctx7(n7),
+            Ctx8(n8),
+            Ctx9(n9)
+          -> 1 + n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9
           _, _, _, _, _, _, _, _, _ -> 0
         }
       },
