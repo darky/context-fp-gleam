@@ -8,7 +8,7 @@ type Cache =
 pub fn cfp1(dep1: fn(ctx, Cache) -> a, fun: fn(a, Cache) -> resp) {
   fn(ctx: ctx, cache: Cache) {
     let #(resp, cache) = cfp_base([dynamic.from(dep1)], ctx, cache)
-    let assert Ok(val1) = list.at(resp, 0)
+    let assert Ok(val1) = dict.get(resp, 0)
     fun(dynamic.unsafe_coerce(val1), cache)
   }
 }
@@ -21,8 +21,8 @@ pub fn cfp2(
   fn(ctx: ctx, cache: Cache) {
     let #(resp, cache) =
       cfp_base([dynamic.from(dep1), dynamic.from(dep2)], ctx, cache)
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
     fun(dynamic.unsafe_coerce(val1), dynamic.unsafe_coerce(val2), cache)
   }
 }
@@ -40,9 +40,9 @@ pub fn cfp3(
         ctx,
         cache,
       )
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
-    let assert Ok(val3) = list.at(resp, 2)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
+    let assert Ok(val3) = dict.get(resp, 2)
     fun(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
@@ -71,10 +71,10 @@ pub fn cfp4(
         ctx,
         cache,
       )
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
-    let assert Ok(val3) = list.at(resp, 2)
-    let assert Ok(val4) = list.at(resp, 3)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
+    let assert Ok(val3) = dict.get(resp, 2)
+    let assert Ok(val4) = dict.get(resp, 3)
     fun(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
@@ -106,11 +106,11 @@ pub fn cfp5(
         ctx,
         cache,
       )
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
-    let assert Ok(val3) = list.at(resp, 2)
-    let assert Ok(val4) = list.at(resp, 3)
-    let assert Ok(val5) = list.at(resp, 4)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
+    let assert Ok(val3) = dict.get(resp, 2)
+    let assert Ok(val4) = dict.get(resp, 3)
+    let assert Ok(val5) = dict.get(resp, 4)
     fun(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
@@ -145,12 +145,12 @@ pub fn cfp6(
         ctx,
         cache,
       )
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
-    let assert Ok(val3) = list.at(resp, 2)
-    let assert Ok(val4) = list.at(resp, 3)
-    let assert Ok(val5) = list.at(resp, 4)
-    let assert Ok(val6) = list.at(resp, 5)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
+    let assert Ok(val3) = dict.get(resp, 2)
+    let assert Ok(val4) = dict.get(resp, 3)
+    let assert Ok(val5) = dict.get(resp, 4)
+    let assert Ok(val6) = dict.get(resp, 5)
     fun(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
@@ -188,13 +188,13 @@ pub fn cfp7(
         ctx,
         cache,
       )
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
-    let assert Ok(val3) = list.at(resp, 2)
-    let assert Ok(val4) = list.at(resp, 3)
-    let assert Ok(val5) = list.at(resp, 4)
-    let assert Ok(val6) = list.at(resp, 5)
-    let assert Ok(val7) = list.at(resp, 6)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
+    let assert Ok(val3) = dict.get(resp, 2)
+    let assert Ok(val4) = dict.get(resp, 3)
+    let assert Ok(val5) = dict.get(resp, 4)
+    let assert Ok(val6) = dict.get(resp, 5)
+    let assert Ok(val7) = dict.get(resp, 6)
     fun(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
@@ -235,14 +235,14 @@ pub fn cfp8(
         ctx,
         cache,
       )
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
-    let assert Ok(val3) = list.at(resp, 2)
-    let assert Ok(val4) = list.at(resp, 3)
-    let assert Ok(val5) = list.at(resp, 4)
-    let assert Ok(val6) = list.at(resp, 5)
-    let assert Ok(val7) = list.at(resp, 6)
-    let assert Ok(val8) = list.at(resp, 7)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
+    let assert Ok(val3) = dict.get(resp, 2)
+    let assert Ok(val4) = dict.get(resp, 3)
+    let assert Ok(val5) = dict.get(resp, 4)
+    let assert Ok(val6) = dict.get(resp, 5)
+    let assert Ok(val7) = dict.get(resp, 6)
+    let assert Ok(val8) = dict.get(resp, 7)
     fun(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
@@ -286,15 +286,15 @@ pub fn cfp9(
         ctx,
         cache,
       )
-    let assert Ok(val1) = list.at(resp, 0)
-    let assert Ok(val2) = list.at(resp, 1)
-    let assert Ok(val3) = list.at(resp, 2)
-    let assert Ok(val4) = list.at(resp, 3)
-    let assert Ok(val5) = list.at(resp, 4)
-    let assert Ok(val6) = list.at(resp, 5)
-    let assert Ok(val7) = list.at(resp, 6)
-    let assert Ok(val8) = list.at(resp, 7)
-    let assert Ok(val9) = list.at(resp, 8)
+    let assert Ok(val1) = dict.get(resp, 0)
+    let assert Ok(val2) = dict.get(resp, 1)
+    let assert Ok(val3) = dict.get(resp, 2)
+    let assert Ok(val4) = dict.get(resp, 3)
+    let assert Ok(val5) = dict.get(resp, 4)
+    let assert Ok(val6) = dict.get(resp, 5)
+    let assert Ok(val7) = dict.get(resp, 6)
+    let assert Ok(val8) = dict.get(resp, 7)
+    let assert Ok(val9) = dict.get(resp, 8)
     fun(
       dynamic.unsafe_coerce(val1),
       dynamic.unsafe_coerce(val2),
@@ -311,17 +311,17 @@ pub fn cfp9(
 }
 
 fn cfp_base(deps, ctx, cache: Cache) {
-  list.fold(deps, #([], cache), fn(acc, dep) {
+  list.index_fold(deps, #(dict.new(), cache), fn(acc, dep, idx) {
     let #(resp, cache) = acc
     let from_cache = dict.get(cache, dep)
     case from_cache {
-      Ok(val) -> #(list.append(resp, [val]), cache)
+      Ok(val) -> #(dict.insert(resp, idx, val), cache)
       Error(Nil) -> {
         let val =
           dynamic.unsafe_coerce(dep)(ctx, cache)
           |> dynamic.from
         let cache = dict.insert(cache, dep, val)
-        #(list.append(resp, [val]), cache)
+        #(dict.insert(resp, idx, val), cache)
       }
     }
   })
