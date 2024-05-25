@@ -291,7 +291,7 @@ pub fn transaction_test() {
     }
     transaction_sql
     |> should.equal("begin; update users set age = $1 where id = $2; commit;")
-    let assert Ok(query) = list.at(queries, 0)
+    let assert Ok(query) = list.first(queries)
     query.1
     |> should.equal([31, 1])
   }
