@@ -1,15 +1,15 @@
 import gleam/dict
-import gleam/dynamic
+import gleam/dynamic.{type Dynamic}
 import gleam/list
 
 type Cache =
-  dict.Dict(dynamic.Dynamic, dynamic.Dynamic)
+  dict.Dict(Dynamic, Dynamic)
 
 pub fn cfp1(dep1: fn(ctx, Cache) -> a, fun: fn(a, Cache) -> resp) {
   fn(ctx: ctx, cache: Cache) {
     let #(resp, cache) = cfp_base([dynamic.from(dep1)], ctx, cache)
     let assert Ok(val1) = dict.get(resp, 0)
-    fun(dynamic.unsafe_coerce(val1), cache)
+    fun(unsafe_coerce(val1), cache)
   }
 }
 
@@ -23,7 +23,7 @@ pub fn cfp2(
       cfp_base([dynamic.from(dep1), dynamic.from(dep2)], ctx, cache)
     let assert Ok(val1) = dict.get(resp, 0)
     let assert Ok(val2) = dict.get(resp, 1)
-    fun(dynamic.unsafe_coerce(val1), dynamic.unsafe_coerce(val2), cache)
+    fun(unsafe_coerce(val1), unsafe_coerce(val2), cache)
   }
 }
 
@@ -43,12 +43,7 @@ pub fn cfp3(
     let assert Ok(val1) = dict.get(resp, 0)
     let assert Ok(val2) = dict.get(resp, 1)
     let assert Ok(val3) = dict.get(resp, 2)
-    fun(
-      dynamic.unsafe_coerce(val1),
-      dynamic.unsafe_coerce(val2),
-      dynamic.unsafe_coerce(val3),
-      cache,
-    )
+    fun(unsafe_coerce(val1), unsafe_coerce(val2), unsafe_coerce(val3), cache)
   }
 }
 
@@ -76,10 +71,10 @@ pub fn cfp4(
     let assert Ok(val3) = dict.get(resp, 2)
     let assert Ok(val4) = dict.get(resp, 3)
     fun(
-      dynamic.unsafe_coerce(val1),
-      dynamic.unsafe_coerce(val2),
-      dynamic.unsafe_coerce(val3),
-      dynamic.unsafe_coerce(val4),
+      unsafe_coerce(val1),
+      unsafe_coerce(val2),
+      unsafe_coerce(val3),
+      unsafe_coerce(val4),
       cache,
     )
   }
@@ -112,11 +107,11 @@ pub fn cfp5(
     let assert Ok(val4) = dict.get(resp, 3)
     let assert Ok(val5) = dict.get(resp, 4)
     fun(
-      dynamic.unsafe_coerce(val1),
-      dynamic.unsafe_coerce(val2),
-      dynamic.unsafe_coerce(val3),
-      dynamic.unsafe_coerce(val4),
-      dynamic.unsafe_coerce(val5),
+      unsafe_coerce(val1),
+      unsafe_coerce(val2),
+      unsafe_coerce(val3),
+      unsafe_coerce(val4),
+      unsafe_coerce(val5),
       cache,
     )
   }
@@ -152,12 +147,12 @@ pub fn cfp6(
     let assert Ok(val5) = dict.get(resp, 4)
     let assert Ok(val6) = dict.get(resp, 5)
     fun(
-      dynamic.unsafe_coerce(val1),
-      dynamic.unsafe_coerce(val2),
-      dynamic.unsafe_coerce(val3),
-      dynamic.unsafe_coerce(val4),
-      dynamic.unsafe_coerce(val5),
-      dynamic.unsafe_coerce(val6),
+      unsafe_coerce(val1),
+      unsafe_coerce(val2),
+      unsafe_coerce(val3),
+      unsafe_coerce(val4),
+      unsafe_coerce(val5),
+      unsafe_coerce(val6),
       cache,
     )
   }
@@ -196,13 +191,13 @@ pub fn cfp7(
     let assert Ok(val6) = dict.get(resp, 5)
     let assert Ok(val7) = dict.get(resp, 6)
     fun(
-      dynamic.unsafe_coerce(val1),
-      dynamic.unsafe_coerce(val2),
-      dynamic.unsafe_coerce(val3),
-      dynamic.unsafe_coerce(val4),
-      dynamic.unsafe_coerce(val5),
-      dynamic.unsafe_coerce(val6),
-      dynamic.unsafe_coerce(val7),
+      unsafe_coerce(val1),
+      unsafe_coerce(val2),
+      unsafe_coerce(val3),
+      unsafe_coerce(val4),
+      unsafe_coerce(val5),
+      unsafe_coerce(val6),
+      unsafe_coerce(val7),
       cache,
     )
   }
@@ -244,14 +239,14 @@ pub fn cfp8(
     let assert Ok(val7) = dict.get(resp, 6)
     let assert Ok(val8) = dict.get(resp, 7)
     fun(
-      dynamic.unsafe_coerce(val1),
-      dynamic.unsafe_coerce(val2),
-      dynamic.unsafe_coerce(val3),
-      dynamic.unsafe_coerce(val4),
-      dynamic.unsafe_coerce(val5),
-      dynamic.unsafe_coerce(val6),
-      dynamic.unsafe_coerce(val7),
-      dynamic.unsafe_coerce(val8),
+      unsafe_coerce(val1),
+      unsafe_coerce(val2),
+      unsafe_coerce(val3),
+      unsafe_coerce(val4),
+      unsafe_coerce(val5),
+      unsafe_coerce(val6),
+      unsafe_coerce(val7),
+      unsafe_coerce(val8),
       cache,
     )
   }
@@ -296,15 +291,15 @@ pub fn cfp9(
     let assert Ok(val8) = dict.get(resp, 7)
     let assert Ok(val9) = dict.get(resp, 8)
     fun(
-      dynamic.unsafe_coerce(val1),
-      dynamic.unsafe_coerce(val2),
-      dynamic.unsafe_coerce(val3),
-      dynamic.unsafe_coerce(val4),
-      dynamic.unsafe_coerce(val5),
-      dynamic.unsafe_coerce(val6),
-      dynamic.unsafe_coerce(val7),
-      dynamic.unsafe_coerce(val8),
-      dynamic.unsafe_coerce(val9),
+      unsafe_coerce(val1),
+      unsafe_coerce(val2),
+      unsafe_coerce(val3),
+      unsafe_coerce(val4),
+      unsafe_coerce(val5),
+      unsafe_coerce(val6),
+      unsafe_coerce(val7),
+      unsafe_coerce(val8),
+      unsafe_coerce(val9),
       cache,
     )
   }
@@ -318,7 +313,7 @@ fn cfp_base(deps, ctx, cache: Cache) {
       Ok(val) -> #(dict.insert(resp, idx, val), cache)
       Error(Nil) -> {
         let val =
-          dynamic.unsafe_coerce(dep)(ctx, cache)
+          unsafe_coerce(dep)(ctx, cache)
           |> dynamic.from
         let cache = dict.insert(cache, dep, val)
         #(dict.insert(resp, idx, val), cache)
@@ -326,3 +321,7 @@ fn cfp_base(deps, ctx, cache: Cache) {
     }
   })
 }
+
+@external(erlang, "gleam_stdlib", "identity")
+@external(javascript, "../gleam_stdlib.mjs", "identity")
+fn unsafe_coerce(a: Dynamic) -> a

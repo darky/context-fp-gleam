@@ -1,6 +1,6 @@
 import context_fp_gleam.{cfp1, cfp2, cfp3, cfp4, cfp5, cfp6, cfp7, cfp8, cfp9}
 import gleam/dict
-import gleam/dynamic
+import gleam/dynamic.{type Dynamic}
 import gleam/int
 import gleam/io
 import gleam/list
@@ -276,7 +276,7 @@ pub fn transaction_test() {
     let db_entities = dict.values(cache)
     let queries =
       list.flat_map(db_entities, fn(user) {
-        case dynamic.unsafe_coerce(user) {
+        case unsafe_coerce(user) {
           option.Some(User(_, _, _) as user) -> [
             #("update users set age = $1 where id = $2; ", [user.age, user.id]),
           ]
@@ -297,3 +297,7 @@ pub fn transaction_test() {
   }
   save_to_db(1, dict.new())
 }
+
+@external(erlang, "gleam_stdlib", "identity")
+@external(javascript, "../gleam_stdlib.mjs", "identity")
+fn unsafe_coerce(a: Dynamic) -> a
