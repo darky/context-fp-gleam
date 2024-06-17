@@ -323,5 +323,5 @@ fn cfp_base(deps, ctx, cache: Cache) {
 }
 
 @external(erlang, "gleam_stdlib", "identity")
-@external(javascript, "../gleam_stdlib.mjs", "identity")
+@external(javascript, "../gleam_stdlib/gleam_stdlib.mjs", "identity")
 fn unsafe_coerce(a: Dynamic) -> a
