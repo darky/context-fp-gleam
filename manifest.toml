@@ -2,7 +2,7 @@
 # You typically do not need to edit this file
 
 packages = [
-  { name = "cleam", version = "1.5.0", build_tools = ["gleam"], requirements = ["fswalk", "glance", "gleam_stdlib", "simplifile"], otp_app = "cleam", source = "hex", outer_checksum = "34C3F206256C9D7B9CB2B7E1FA17A3B6D3E991CC60EAE4B482088F10297AD752" },
+  { name = "cleam", version = "1.5.1", build_tools = ["gleam"], requirements = ["fswalk", "glance", "gleam_stdlib", "simplifile"], otp_app = "cleam", source = "hex", outer_checksum = "CA11A36DB6678D5DD8A1282C1EBF36A735370A080C08A2D9069EF94FE178F7AB" },
   { name = "filepath", version = "1.0.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "filepath", source = "hex", outer_checksum = "EFB6FF65C98B2A16378ABC3EE2B14124168C0CE5201553DE652E2644DCFDB594" },
   { name = "fswalk", version = "3.0.1", build_tools = ["gleam"], requirements = ["gleam_community_path", "gleam_stdlib", "simplifile"], otp_app = "fswalk", source = "hex", outer_checksum = "344B6600F50E638D0F4A51110235566F692EAED9CEDF9A65100DE0CFE88A9785" },
   { name = "glance", version = "0.11.0", build_tools = ["gleam"], requirements = ["gleam_stdlib", "glexer"], otp_app = "glance", source = "hex", outer_checksum = "8F3314D27773B7C3B9FB58D8C02C634290422CE531988C0394FA0DF8676B964D" },
@@ -14,6 +14,6 @@ packages = [
 ]
 
 [requirements]
-cleam = { version = "~> 1.2" }
-gleam_stdlib = { version = "~> 0.34 or ~> 1.0" }
-gleeunit = { version = "~> 1.0" }
+cleam = { version = ">= 1.5.1" }
+gleam_stdlib = { version = ">= 0.38.0" }
+gleeunit = { version = ">= 1.0.0" }
