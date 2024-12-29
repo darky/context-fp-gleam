@@ -1,6 +1,6 @@
 # context_fp_gleam
 
-## Deprecated in favor [functx](https://github.com/darky/functx)
+## Deprecated in favor [klubok-gleam](https://github.com/darky/klubok-gleam)
 
 [![Package Version](https://img.shields.io/hexpm/v/context_fp_gleam)](https://hex.pm/packages/context_fp_gleam)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/context_fp_gleam/)
